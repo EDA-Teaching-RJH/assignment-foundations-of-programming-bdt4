@@ -38,9 +38,9 @@ def run_system_monolith():
             new_div = input("Division: ")
             
            
-            n.append(new_name)
-            r.append(new_rank)
-            d.append(new_div)
+            n.append(new_name.title())
+            r.append(new_rank.title())
+            d.append(new_div.title())
             print("Crew member added.")
             
         elif opt == "3":
@@ -84,7 +84,7 @@ def run_system_monolith():
             print("Database empty.")
 
         
-        fuel = 100
+        fuel = 100 #literally no clue what this does either
         consumption = 0
         while fuel > 0:
             
