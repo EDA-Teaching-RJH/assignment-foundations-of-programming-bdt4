@@ -2,7 +2,7 @@ n = ["Picard", "Riker", "Data", "Worf"]
 r = ["Captain", "Commander", "Lt. Commander", "Lieutenant"]
 d = ["Command", "Command", "Operations", "Security"]
 
-active = True
+active = True #I have no idea what this is for tbh
 
 def run_system_monolith():
     print("BOOTING SYSTEM...")
