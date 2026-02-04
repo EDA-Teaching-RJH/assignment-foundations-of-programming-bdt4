@@ -44,7 +44,7 @@ def run_system_monolith():
             print("Crew member added.")
             
         elif opt == "3":
-            rem = input("Name to remove: ")
+            rem = input("Name to remove: ").title()
             if rem in n:
              idx = n.index(rem)
              n.pop(idx)
