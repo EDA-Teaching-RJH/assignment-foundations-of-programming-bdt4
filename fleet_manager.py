@@ -9,7 +9,7 @@ def init_database():
 
 def display_menu():
     #ask user name for future use, as well as removing empty spaces and capitlising it
-    user_name = input("Please enter your full name").strip().title()
+    user_name = input("Please enter your full name:").strip().title()
     #List of menu options to use later
     valid_options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
@@ -37,13 +37,55 @@ def display_menu():
         else:
             print("\n INVALID OPTION CHOSEN. \n") #The spacers just make it pretty in my opinion
 
+def add_member(names, ranks, divs, ids):
+    new_name = input("Enter crew name:").strip().title()
+    
+    valid_ranks = ["Captain", "Commander", "Lt. Commander", "Lieutenant", "Ensign"]
+    while True:
+        print("Valid ranks are:", valid_ranks)
+        new_rank = input("Enter crew rank:").strip().title()
+        if new_rank in valid_ranks:
+            break
+        else:
+            print("ERROR: Invalid Rank.")
+
+    valid_divs = ["Command", "Operations", "Sciences"]
+    while True:
+        print("Valid divisions are:", valid_divs)
+        new_div = input("Enter crew division:").strip().title()
+
+        if new_div in valid_divs:
+            break
+        else:
+            print("ERROR: Invalid Division")
+    
+    while True:
+        new_id = input("Enter crew id:").strip()
+
+        if new_id in ids:
+            print("ERROR: ID already exists")
+        else:
+            break
+    
+    names.append(new_name)
+    ranks.append(new_rank)
+    divs.append(new_div)
+    ids.append(new_id)
+
+    print("Crew member added")
+
 def main(): #function for the main program that utilises my 10 base functions
     names, ranks, divs, ids = init_database() #calling the variable and stores the lists
     print("Database initialised.") #mostly a diagnostic tool really, but looks cool
+
     
-    for i in range(len(names)): #just literally testing if my lists work, will remove later
-        print(names[i], ranks[i], divs[i], ids[i])
     
     option = display_menu()
-    print("You chose:", option) #testing purposes
+    if option == "1":
+        print ("Display crew selected")
+
+    elif option == "2":
+        add_member(names, ranks, divs, ids)
+        for i in range(len(names)): #just literally testing if my lists work, will remove later
+            print(names[i], ranks[i], divs[i], ids[i])
 main()
