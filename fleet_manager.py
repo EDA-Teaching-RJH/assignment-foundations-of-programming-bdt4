@@ -37,11 +37,10 @@ def display_menu():
         else:
             print("\n INVALID OPTION CHOSEN. \n") #The spacers just make it pretty in my opinion
 
-def add_member(names, ranks, divs, ids):
+def add_member(names, ranks, divs, ids, valid_ranks):
     new_name = input("Enter crew name:").strip().title()
-    #Simple input for a new name
+    #Simple ask for a new name
 
-    valid_ranks = ["Captain", "Commander", "Lt. Commander", "Lieutenant", "Ensign"]
     while True:
         print("Valid ranks are:", valid_ranks)
         new_rank = input("Enter crew rank:").strip().title()
@@ -77,35 +76,69 @@ def add_member(names, ranks, divs, ids):
     print("Crew member added")
 
 def remove_member(names, ranks, divs, ids):
-    rem_id = input("Enter crew ID to remove:").strip()
+    while True: #Same loop as before, we just go until correct input is presented and then continue once it is
+        rem_id = input("Enter crew ID to remove:").strip()
+        #Checks if the ID is in the list of ids and if it is, deletes it
+        if rem_id in ids:
+            index = ids.index(rem_id)
+            names.pop(index)
+            ranks.pop(index)
+            divs.pop(index)
+            ids.pop(index)
+            print("Crew member removed.")
+            break
+        else:
+            print("ERROR: ID not found.")
+            #Otherwise spits an error out
 
-    if rem_id in ids:
-        index = ids.index(rem_id)
-        names.pop(index)
-        ranks.pop(index)
-        divs.pop(index)
-        ids.pop(index)
-        print("Crew member removed.")
-    else:
-        print("ERROR: ID not found.")
+def update_rank(names, ranks, ids, valid_ranks):
+    while True:
+        target_id = input("Enter crew ID to update:").strip()
+
+        if target_id in ids:
+            index = ids.index(target_id)
+            break
+        else:
+            print("ERROR: ID not found.")
+        
+    print("Crew member:", names[index])
+    print("Current rank:", ranks[index])
+    
+    while True:
+        print("Valid ranks are:", valid_ranks)
+        new_rank = input("Enter new rank:").strip().title()
+
+        if new_rank in valid_ranks:
+            ranks[index] = new_rank
+            print("Rank updated.")
+            break
+        else:
+            print("ERROR: Invalid rank")
+            #Searches through ids, verifies if id exists and then asks for rank, verifies again and updates
 
 def main(): #function for the main program that utilises my 10 base functions
     names, ranks, divs, ids = init_database() #calling the variable and stores the lists
+    valid_ranks = ["Captain", "Commander", "Lt. Commander", "Lieutenant", "Ensign"]
     print("Database initialised.") #mostly a diagnostic tool really, but looks cool
 
     
-    
     option = display_menu()
+    
     if option == "1":
         print ("Display crew selected")
 
     elif option == "2":
-        add_member(names, ranks, divs, ids)
+        add_member(names, ranks, divs, ids, valid_ranks)
         for i in range(len(names)): #just literally testing if my lists work, will remove later
             print(names[i], ranks[i], divs[i], ids[i])
 
     elif option == "3":
         remove_member(names, ranks, divs, ids)
+        for i in range(len(names)):
+            print(names[i], ranks[i], divs[i], ids[i])
+    
+    elif option =="4":
+        update_rank(names, ranks, ids, valid_ranks)
         for i in range(len(names)):
             print(names[i], ranks[i], divs[i], ids[i])
 main()
