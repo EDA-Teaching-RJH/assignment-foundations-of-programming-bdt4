@@ -36,8 +36,13 @@ def display_menu(user_name):
             print("\n INVALID OPTION CHOSEN. \n") #The spacers just make it pretty in my opinion
 
 def add_member(names, ranks, divs, ids, valid_ranks, valid_divs):
-    new_name = input("Enter crew name: ").strip().title()
-    #Simple ask for a new name
+    while True:
+        new_name = input("Enter crew name: ").strip().title()
+        #Simple ask for a new name
+        if new_name == "":
+            print("ERROR: Name cannot be blank.")
+        else:
+            break
 
     while True:
         print("Valid ranks are", valid_ranks)
@@ -60,7 +65,9 @@ def add_member(names, ranks, divs, ids, valid_ranks, valid_divs):
     while True:
         new_id = input("Enter crew id: ").strip()
 
-        if new_id in ids:
+        if new_id == "":
+            print("ERROR: ID cannot be blank.")
+        elif new_id in ids:
             print("ERROR: ID already exists")
         else:
             break
@@ -162,7 +169,10 @@ def search_crew(names, ranks, divs, ids):
     search_name = input("Enter a name to search: ").strip().lower()
     #input a search and make it all lowercase coming out so that it doesn't cause issues
     found = False
-
+    if search_name == "":
+        print("Please enter a search term.")
+        return
+    
     for i in range(len(names)):
         if search_name in names[i].lower(): #we are searching lowercase so no issues occur
             print("\nMatch found: ")
