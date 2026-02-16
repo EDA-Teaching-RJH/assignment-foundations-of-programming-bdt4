@@ -210,7 +210,17 @@ def calculate_payroll(ranks):
 
     return total
     #simple for loop to automatically adjust the payrates when crew members are added, deleted or otherwise
-    
+
+def count_officers(ranks):
+    count = 0
+
+    for rank in ranks:
+        if rank == "Captain" or rank == "Commander":
+            count = count + 1
+            #start the count as 0 and count how many captains or commanders there are and nothing else
+            #then return that number
+    return count
+
 def main(): #function for the main program that utilises my 10 base functions
     names, ranks, divs, ids = init_database() #calling the variable and stores the lists
     valid_ranks = ["Captain", "Commander", "Lt. Commander", "Lieutenant", "Ensign"]
@@ -248,8 +258,9 @@ def main(): #function for the main program that utilises my 10 base functions
             total_pay = calculate_payroll(ranks)
             print("\nTotal payroll cost:", total_pay, "credits")
 
-       #elif option = "8":
-
+        elif option == "8":
+            officer_count = count_officers(ranks)
+            print("\nNumber of senior officers:", officer_count)
 
         elif option == "9":
             print("Exiting Fleet Manager. Goodbye. ")
