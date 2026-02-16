@@ -200,6 +200,17 @@ def filter_by_division(names, ranks, divs, ids, valid_divs):
     if found == False:
         print("No crew members found in that division.")
 
+def calculate_payroll(ranks):
+    pay_rates = {"Captain": 1000, "Commander": 800, "Lt. Commander": 600, "Lieutenant": 400, "Ensign": 200}
+    #using the dictionary feature of python to assign a number value to the ranks in the list
+    total = 0 #set it to 0 so that only the ranks cause the numbe to go up or down
+
+    for rank in ranks:
+        total = total + pay_rates[rank]
+
+    return total
+    #simple for loop to automatically adjust the payrates when crew members are added, deleted or otherwise
+    
 def main(): #function for the main program that utilises my 10 base functions
     names, ranks, divs, ids = init_database() #calling the variable and stores the lists
     valid_ranks = ["Captain", "Commander", "Lt. Commander", "Lieutenant", "Ensign"]
@@ -233,8 +244,9 @@ def main(): #function for the main program that utilises my 10 base functions
             filter_by_division(names, ranks, divs, ids, valid_divs)
             
             
-        #elif option == "7":
-
+        elif option == "7":
+            total_pay = calculate_payroll(ranks)
+            print("\nTotal payroll cost:", total_pay, "credits")
 
        #elif option = "8":
 
