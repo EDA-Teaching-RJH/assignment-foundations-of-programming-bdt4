@@ -159,11 +159,27 @@ def display_roster(names, ranks, divs, ids):
         print(f"{ids[i]:<{id_width}} | {names[i]:<{name_width}} | {ranks[i]:<{rank_width}} | {divs[i]:<{div_width}}")
     #print rows
 
+def search_crew(names, ranks, divs, ids):
+    search_name = input("Enter a name to search: ").strip().lower()
+    #input a search and make it all lowercase coming out so that it doesn't cause issues
+    found = False
+
+    for i in range(len(names)):
+        if search_name in names[i].lower(): #we are searching lowercase so no issues occur
+            print("\nMatch found: ")
+            print("ID: ", ids[i])
+            print("Name: ", names[i])
+            print("Rank: ", ranks[i])
+            print("Division: ", divs[i])
+            found = True
+            #prints out the information found, or if not found, that it couldn't find it
+    if found == False:
+        print("No matching crew members found.")
 
 def main(): #function for the main program that utilises my 10 base functions
     names, ranks, divs, ids = init_database() #calling the variable and stores the lists
     valid_ranks = ["Captain", "Commander", "Lt. Commander", "Lieutenant", "Ensign"]
-
+    print("Please wait...")
     print("Database initialised.") #mostly a diagnostic tool really, but looks cool
 
     #ask user name for future use, as well as removing empty spaces and capitalising it
@@ -184,7 +200,8 @@ def main(): #function for the main program that utilises my 10 base functions
         elif option == "4":
             update_rank(names, ranks, ids, valid_ranks)
         
-        #elif option == "5":
+        elif option == "5":
+            search_crew(names, ranks, divs, ids)
 
 
         #elif option == "6":
