@@ -35,7 +35,7 @@ def display_menu(user_name):
         else:
             print("\n INVALID OPTION CHOSEN. \n") #The spacers just make it pretty in my opinion
 
-def add_member(names, ranks, divs, ids, valid_ranks):
+def add_member(names, ranks, divs, ids, valid_ranks, valid_divs):
     new_name = input("Enter crew name: ").strip().title()
     #Simple ask for a new name
 
@@ -48,7 +48,6 @@ def add_member(names, ranks, divs, ids, valid_ranks):
             print("ERROR: Invalid Rank.")
             #Tells you what the ranks are, checks if you enter the right one and will loop until you do
 
-    valid_divs = ["Command", "Operations", "Sciences"]
     while True:
         print("Valid divisions are: ", valid_divs)
         new_div = input("Enter crew division: ").strip().title()
@@ -176,9 +175,35 @@ def search_crew(names, ranks, divs, ids):
     if found == False:
         print("No matching crew members found.")
 
+def filter_by_division(names, ranks, divs, ids, valid_divs):
+    while True:
+        print("Valid divisions are: ", valid_divs)
+        target_div = input("Enter division to filter by: ").strip().title()
+        #Asks for which division to search by, while also giving correct divisions
+        if target_div in valid_divs:
+            break
+        else:
+            print("ERROR: Invalid Division")
+    print("\nCrew members in", target_div, "division:")
+    #If the division is found in the list, continue, if not, print an error and keep going
+    found = False
+
+    for i in range(len(names)):
+        if divs[i] == target_div:
+            print("ID:", ids[i])
+            print("Name:", names[i])
+            print("Rank:", ranks[i])
+            print("Division:", divs[i])
+            print() #Just incase multiple are found so we seperate by one line
+            found = True
+            #When a division is chosen, print out information of those in that division
+    if found == False:
+        print("No crew members found in that division.")
+
 def main(): #function for the main program that utilises my 10 base functions
     names, ranks, divs, ids = init_database() #calling the variable and stores the lists
     valid_ranks = ["Captain", "Commander", "Lt. Commander", "Lieutenant", "Ensign"]
+    valid_divs = ["Command", "Operations", "Sciences"]
     print("Please wait...")
     print("Database initialised.") #mostly a diagnostic tool really, but looks cool
 
@@ -192,7 +217,7 @@ def main(): #function for the main program that utilises my 10 base functions
             display_roster(names, ranks, divs, ids)
 
         elif option == "2":
-            add_member(names, ranks, divs, ids, valid_ranks)
+            add_member(names, ranks, divs, ids, valid_ranks, valid_divs)
 
         elif option == "3":
             remove_member(names, ranks, divs, ids)
@@ -204,7 +229,8 @@ def main(): #function for the main program that utilises my 10 base functions
             search_crew(names, ranks, divs, ids)
 
 
-        #elif option == "6":
+        elif option == "6":
+            filter_by_division(names, ranks, divs, ids, valid_divs)
             
             
         #elif option == "7":
